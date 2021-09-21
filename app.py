@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 import json
 
-from src import base
+from src import greedy
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def get_gomoku():
     # {0: 'black', 1: 'white', Null: None}
     gomoku_json = json.loads(params["current_square_list"])
     # ランダムにNoneから
-    res_x, res_y = base.run(gomoku_json)
+    res_x, res_y = greedy.run(gomoku_json)
 
     response = {"x": res_x, "y": res_y}
     if 'param' in params:

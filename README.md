@@ -17,6 +17,7 @@ docker-compose up -d
 
 ## Algorithm
 - [base](src/base.py)
+- [greedy](src/greedy.py)
 
 ## Dependent repository
 
