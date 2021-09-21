@@ -1,26 +1,18 @@
 from flask import Flask, request, jsonify, make_response
 import json
 
+from src import base
+
 app = Flask(__name__)
 
 
 @app.route("/gomoku/cpu", methods=['GET'])
-def getGomoku():
-    # URLパラメータ
+def get_gomoku():
     params = request.args
+    # {0: 'black', 1: 'white', N}
     gomoku_json = json.loads(params["current_square_list"])
     # ランダムにNoneから
-    res_x, res_y = 0, 0
-    flag = False
-    for x, gg in enumerate(gomoku_json):
-        for y, g in enumerate(gg):
-            if g is None:
-                res_y = y
-                res_x = x
-                flag = True
-                break
-        if flag:
-            break
+    res_x, res_y = base.run(gomoku_json)
 
     response = {"x": res_x, "y": res_y}
     if 'param' in params:
