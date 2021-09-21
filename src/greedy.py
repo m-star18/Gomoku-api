@@ -1,6 +1,6 @@
 import itertools
 
-from const import (
+from src.const import (
     X, Y,
     E, N, W, S,
     LOOP
