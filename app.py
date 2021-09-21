@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/gomoku/cpu", methods=['GET'])
 def get_gomoku():
     params = request.args
-    # {0: 'black', 1: 'white', N}
+    # {0: 'black', 1: 'white', Null: None}
     gomoku_json = json.loads(params["current_square_list"])
     # ランダムにNoneから
     res_x, res_y = base.run(gomoku_json)
