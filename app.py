@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 import json
 
 from src import greedy
 
 app = Flask(__name__)
 
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route("/gomoku/cpu", methods=['GET'])
 def get_gomoku():
