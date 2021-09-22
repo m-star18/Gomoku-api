@@ -6,7 +6,7 @@ from src import greedy
 
 app = Flask(__name__)
 
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={"*": {"origins": "*"}})
 
 @app.route("/gomoku/cpu", methods=['GET'])
 def get_gomoku():
