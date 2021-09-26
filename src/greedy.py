@@ -1,5 +1,4 @@
 import itertools
-import json
 
 from src.const import (
     X, Y,
@@ -28,10 +27,15 @@ def check_both_size(x, y, board, cfg, cnt):
 
 def n_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for yy in range(y - 1, -2, -1):
         if check_index_error(x, yy):
             if board[yy][x] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[yy][x] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -40,11 +44,16 @@ def n_search(x, y, board, cfg):
 
 def ne_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for i in range(1, X):
         yy, xx = y - i, x + i
         if check_index_error(xx, yy):
             if board[yy][xx] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[yy][xx] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -53,10 +62,15 @@ def ne_search(x, y, board, cfg):
 
 def e_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for xx in range(x + 1, X + 2):
         if check_index_error(xx, y):
             if board[y][xx] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[y][xx] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -65,11 +79,16 @@ def e_search(x, y, board, cfg):
 
 def se_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for i in range(1, X):
         yy, xx = y + i, x + i
         if check_index_error(xx, yy):
             if board[yy][xx] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[yy][xx] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -78,10 +97,15 @@ def se_search(x, y, board, cfg):
 
 def s_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for yy in range(y + 1, Y + 2):
         if check_index_error(x, yy):
             if board[yy][x] == cfg[1]:
                 cnt += 1
+                continue
+                # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[yy][x] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -90,11 +114,16 @@ def s_search(x, y, board, cfg):
 
 def sw_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for i in range(1, X):
         yy, xx = y + i, x - i
         if check_index_error(xx, yy):
             if board[yy][xx] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[yy][xx] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -103,10 +132,15 @@ def sw_search(x, y, board, cfg):
 
 def w_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for xx in range(x - 1, -2, -1):
         if check_index_error(xx, y):
             if board[y][xx] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[y][xx] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -115,11 +149,16 @@ def w_search(x, y, board, cfg):
 
 def nw_search(x, y, board, cfg):
     cnt = 1
+    flag = True
     for i in range(1, X):
         yy, xx = y - i, x - i
         if check_index_error(xx, yy):
             if board[yy][xx] == cfg[1]:
                 cnt += 1
+                continue
+            # 2-1, 3-1, 2-2の場合を考慮する
+            elif board[yy][xx] is None and flag and cfg[3]:
+                flag = False
                 continue
         break
 
@@ -179,9 +218,3 @@ def run(json):
             step += 1
             x += dx
             y += dy
-
-
-go = json.loads("[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,0,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]")
-for g in go:
-    print(g)
-print(run(go))
