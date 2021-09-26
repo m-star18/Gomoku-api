@@ -6,6 +6,7 @@ returns it when you send the current board as json.
 ## Requirement
  
 * Flask 2.0.1
+* Flask_Cors 3.0.10
 
 ## Usage
  
