@@ -28,6 +28,7 @@ def check_both_size(x, y, board, cfg, cnt):
 def n_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for yy in range(y - 1, -2, -1):
         if check_index_error(x, yy):
             if board[yy][x] == cfg[1]:
@@ -36,15 +37,17 @@ def n_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[yy][x] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = yy, x
                 continue
         break
 
-    return check_both_size(x, yy, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(x, yy, board, cfg, cnt)
 
 
 def ne_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for i in range(1, X):
         yy, xx = y - i, x + i
         if check_index_error(xx, yy):
@@ -54,15 +57,17 @@ def ne_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[yy][xx] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = yy, xx
                 continue
         break
 
-    return check_both_size(xx, yy, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(xx, yy, board, cfg, cnt)
 
 
 def e_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for xx in range(x + 1, X + 2):
         if check_index_error(xx, y):
             if board[y][xx] == cfg[1]:
@@ -71,15 +76,17 @@ def e_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[y][xx] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = y, xx
                 continue
         break
 
-    return check_both_size(xx, y, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(xx, y, board, cfg, cnt)
 
 
 def se_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for i in range(1, X):
         yy, xx = y + i, x + i
         if check_index_error(xx, yy):
@@ -89,15 +96,17 @@ def se_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[yy][xx] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = yy, xx
                 continue
         break
 
-    return check_both_size(xx, yy, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(xx, yy, board, cfg, cnt)
 
 
 def s_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for yy in range(y + 1, Y + 2):
         if check_index_error(x, yy):
             if board[yy][x] == cfg[1]:
@@ -106,15 +115,17 @@ def s_search(x, y, board, cfg):
                 # 2-1, 3-1, 2-2の場合を考慮する
             elif board[yy][x] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = yy, x
                 continue
         break
 
-    return check_both_size(x, yy, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(x, yy, board, cfg, cnt)
 
 
 def sw_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for i in range(1, X):
         yy, xx = y + i, x - i
         if check_index_error(xx, yy):
@@ -124,15 +135,17 @@ def sw_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[yy][xx] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = yy, xx
                 continue
         break
 
-    return check_both_size(xx, yy, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(xx, yy, board, cfg, cnt)
 
 
 def w_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for xx in range(x - 1, -2, -1):
         if check_index_error(xx, y):
             if board[y][xx] == cfg[1]:
@@ -141,15 +154,17 @@ def w_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[y][xx] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = y, xx
                 continue
         break
 
-    return check_both_size(xx, y, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(xx, y, board, cfg, cnt)
 
 
 def nw_search(x, y, board, cfg):
     cnt = 1
     flag = True
+    flag_y, flag_x = None, None
     for i in range(1, X):
         yy, xx = y - i, x - i
         if check_index_error(xx, yy):
@@ -159,10 +174,71 @@ def nw_search(x, y, board, cfg):
             # 2-1, 3-1, 2-2の場合を考慮する
             elif board[yy][xx] is None and flag and cfg[3]:
                 flag = False
+                flag_y, flag_x = yy, xx
                 continue
         break
 
-    return check_both_size(xx, yy, board, cfg, cnt)
+    return flag_x, flag_y, check_both_size(xx, yy, board, cfg, cnt)
+
+
+def all_check(x, y, board, cfg):
+    # 上方向
+    xx, yy, flag = n_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 右上方向
+    xx, yy, flag = ne_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 右方向
+    xx, yy, flag = e_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 右下方向
+    xx, yy, flag = se_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 下方向
+    xx, yy, flag = s_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 左下方向
+    xx, yy, flag = sw_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 左方向
+    xx, yy, flag = w_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    # 左上方向
+    xx, yy, flag = nw_search(x, y, board, cfg)
+    if flag:
+        if xx is not None:
+            return xx, yy
+        else:
+            return x, y
+    return None, None
 
 
 def run(json):
@@ -189,31 +265,9 @@ def run(json):
             # 全方向に探索
             # その座標に置けないとき
             if json[y][x] is None:
-                # 上方向
-                if n_search(x, y, json, cfg):
-                    return x, y
-                # 右上方向
-                if ne_search(x, y, json, cfg):
-                    return x, y
-                # 右方向
-                if e_search(x, y, json, cfg):
-                    return x, y
-                # 右下方向
-                if se_search(x, y, json, cfg):
-                    return x, y
-                # 下方向
-                if s_search(x, y, json, cfg):
-                    return x, y
-                # 左下方向
-                if sw_search(x, y, json, cfg):
-                    return x, y
-                # 左方向
-                if w_search(x, y, json, cfg):
-                    return x, y
-                # 左上方向
-                if nw_search(x, y, json, cfg):
-                    return x, y
-
+                xx, yy = all_check(x, y, json, cfg)
+                if xx is not None:
+                    return xx, yy
             # 次の設定
             step += 1
             x += dx
