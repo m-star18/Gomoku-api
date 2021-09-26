@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 cors = CORS(app, resources={"*": {"origins": "*"}})
 
+
 @app.route("/gomoku/cpu", methods=['GET'])
 def get_gomoku():
     params = request.args
