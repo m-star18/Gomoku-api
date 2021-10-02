@@ -7,6 +7,7 @@ returns it when you send the current board as json.
  
 * Flask 2.0.1
 * Flask_Cors 3.0.10
+* Gunicorn 20.1.0
 
 ## Usage
  
@@ -17,8 +18,8 @@ docker-compose up -d
 ```
 
 ## Algorithm
-- [base](src/base.py)
-- [greedy](src/greedy.py)
+- [base](src/base/base.py)
+- [greedy](src/greedy/greedy.py)
 
 ## Dependent repository
 
