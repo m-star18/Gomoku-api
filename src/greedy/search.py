@@ -315,3 +315,72 @@ class GomokuGreedySearch:
             break
 
         return flag_x, flag_y, self.check_both_size(cnt, xx, yy)
+
+    """
+    全探索.
+    
+    Returns
+    -------
+    x: int or None
+        次の一手のx座標.
+    y: int or None
+        次の一手のy座標.
+    """
+    def all_check(self):
+        # 上方向
+        xx, yy, flag = self.n_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 右上方向
+        xx, yy, flag = self.ne_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 右方向
+        xx, yy, flag = self.e_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 右下方向
+        xx, yy, flag = self.se_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 下方向
+        xx, yy, flag = self.s_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 左下方向
+        xx, yy, flag = self.sw_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 左方向
+        xx, yy, flag = self.w_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        # 左上方向
+        xx, yy, flag = self.nw_search()
+        if flag:
+            if xx is not None:
+                return xx, yy
+            else:
+                return self.x, self.y
+        return None, None
