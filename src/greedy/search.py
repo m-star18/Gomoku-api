@@ -132,3 +132,33 @@ class GomokuGreedySearch:
             break
 
         return flag_x, flag_y, self.check_both_size(cnt, xx, yy)
+
+    """
+    右方向に探索する.
+
+    Returns
+    -------
+    flag_x: int or None
+        穴あきの部分に置くときのx座標.
+    flag_y: int or None
+        穴あきの部分に置くときのy座標.
+    flag: bool
+        両面かどうか.
+    """
+    def e_search(self):
+        cnt = 1
+        flag = True
+        flag_y, flag_x = None, None
+        for xx in range(self.x + 1, X + 2):
+            if self.check_index_error(xx, self.y):
+                if self.board[self.y][xx] == self.cfg[1]:
+                    cnt += 1
+                    continue
+                # 2-1, 3-1, 2-2の場合を考慮する
+                elif self.board[self.y][xx] is None and flag and self.cfg[3]:
+                    flag = False
+                    flag_y, flag_x = self.y, xx
+                    continue
+            break
+
+        return flag_x, flag_y, self.check_both_size(cnt, xx, self.y)
