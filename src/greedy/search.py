@@ -23,3 +23,24 @@ class GomokuGreedySearch:
         self.y = y
         self.board = board
         self.cfg = cfg
+
+    """
+    探索が盤面からはみ出してないか判定する.
+    
+    Parameters
+    ----------
+    x: int
+        対象の盤面のx座標.
+    y: int
+        対象の盤面のy座標.
+    
+    Return
+    ------
+    flag: bool
+        探索が盤面からはみ出していないか.
+    """
+    def check_index_error(self, x, y):
+        if 0 <= x < X and 0 <= y < Y:
+            return True
+
+        return False
