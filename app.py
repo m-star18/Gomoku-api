@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import json
 
-from src import greedy
+from src.greedy import greedy
 
 app = Flask(__name__)
 
@@ -14,7 +14,7 @@ def get_gomoku():
     params = request.args
     # {0: 'black', 1: 'white', Null: None}
     gomoku_json = json.loads(params["current_square_list"])
-    # ランダムにNoneから
+    # greedy
     res_x, res_y = greedy.run(gomoku_json)
 
     response = {"x": res_x, "y": res_y}
