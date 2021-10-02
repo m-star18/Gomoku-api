@@ -44,3 +44,30 @@ class GomokuGreedySearch:
             return True
 
         return False
+
+    """
+    両面かどうかを判定する.
+    
+    Parameters
+    ----------
+    cnt: int
+        連結数.
+    x: int
+        対象の盤面のx座標.
+    y: int
+        対象の盤面のy座標.
+    
+    Return
+    ------
+    flag: bool
+        両面かどうか.
+    """
+    def check_both_size(self, cnt, x, y):
+        if cnt >= self.cfg[0]:
+            if self.cfg[2]:
+                if self.check_index_error(x, y):
+                    return self.board[y][x] is None
+                return False
+            return True
+
+        return False
