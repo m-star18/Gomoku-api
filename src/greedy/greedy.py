@@ -1,6 +1,6 @@
 import itertools
 
-from src.const import (
+from src.greedy.greedy import (
     X, Y,
     E, N, W, S,
     LOOP, CONFIG,
