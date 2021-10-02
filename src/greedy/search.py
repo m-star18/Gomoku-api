@@ -71,3 +71,33 @@ class GomokuGreedySearch:
             return True
 
         return False
+
+    """
+    上方向に探索する.
+    
+    Returns
+    -------
+    flag_x: int or None
+        穴あきの部分に置くときのx座標.
+    flag_y: int or None
+        穴あきの部分に置くときのy座標.
+    flag: bool
+        両面かどうか.
+    """
+    def n_search(self):
+        cnt = 1
+        flag = True
+        flag_y, flag_x = None, None
+        for yy in range(self.y - 1, -2, -1):
+            if self.check_index_error(self.x, yy):
+                if self.board[yy][self.x] == self.cfg[1]:
+                    cnt += 1
+                    continue
+                # 2-1, 3-1, 2-2の場合を考慮する
+                elif self.board[yy][self.x] is None and flag and self.cfg[3]:
+                    flag = False
+                    flag_y, flag_x = yy, self.x
+                    continue
+            break
+
+        return flag_x, flag_y, self.check_both_size(cnt, self.x, yy)
