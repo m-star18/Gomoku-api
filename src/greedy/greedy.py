@@ -1,10 +1,11 @@
 import itertools
 
-from src.greedy.greedy import (
+from src.greedy.const import (
     X, Y,
     E, N, W, S,
     LOOP, CONFIG,
 )
+from src.greedy.search import GomokuGreedySearch
 
 
 def check_index_error(x, y):
@@ -264,8 +265,9 @@ def run(json):
 
             # 全方向に探索
             # その座標に置けないとき
+            gomoku_search = GomokuGreedySearch(x, y, json, cfg)
             if json[y][x] is None:
-                xx, yy = all_check(x, y, json, cfg)
+                xx, yy = gomoku_search.all_check()
                 if xx is not None:
                     return xx, yy
             # 次の設定
