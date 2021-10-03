@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import json
@@ -23,4 +24,4 @@ def get_gomoku():
     return make_response(jsonify(response))
 
 
-app.run(host="0.0.0.0", port=5000)
+app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
